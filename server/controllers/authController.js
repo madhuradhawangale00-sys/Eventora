@@ -10,38 +10,45 @@ const generateToken = (id, role) => {
 
 //Register user
 exports.registerUser = async (req, res) => {
-    const {name, email, password} = req.body;
+    try {
+        const { name, email, password } = req.body;
 
-    let userExists = await User.findOne({email});
-    if(userExists) {
-        return res.status(400).json({error: 'User already exists'});
-    }
+        const userExists = await User.findOne({ email });
 
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password,salt);
+        if (userExists) {
+            return res.status(400).json({ error: "User already exists" });
+        }
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-    try{
-        const user = new User.create({name, email, password: hashedPassword, role:"user", isVerified: false});
-        await user.save();
-        res.status(201).json({message: 'User registered successfully'});
-
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
-        console.log(`OTP for ${email}: ${otp}`);
-        await sendOtpEmail(email, otp, 'account_verification');
-
-        await OTP.create({email, otp, action:'account_verification'});
-
-        res.status(201).json({
-            message: 'User registered successfully. Please check your email for OTP to verification',
-            email: user.email
+        const user = await User.create({
+            name,
+            email,
+            password: hashedPassword,
+            role: "user",
+            isVerified: false,
         });
 
+        const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
+        console.log(`OTP for ${email}: ${otp}`);
 
+        await OTP.create({
+            email,
+            otp,
+            action: "account_verification",
+        });
 
-    } catch(error) {
-        res.status(400).json({error: error.message});
+        await sendOtpEmail(email, otp, "account_verification");
+
+        return res.status(201).json({
+            message: "User registered successfully. Please check your email for OTP verification.",
+            email: user.email,
+        });
+
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
     }
 };
 

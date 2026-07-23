@@ -1,6 +1,5 @@
 const nodemailer = require('nodemailer');
 const dotenv = require('dotenv');
-const { options } = require('../routes/auth');
 dotenv.config();
 
 const transporter = nodemailer.createTransport({
@@ -53,9 +52,9 @@ const sendOtpEmail = async (userEmail, otp, type) => {
             `
     };
     await transporter.sendMail(mailOptions);
-    console.log(`OTP email sent to ${email} for ${type}`);
+    console.log(`OTP email sent to ${userEmail} for ${type}`);
     }catch(error){
-        console.error(` Error sending OTP email sent to ${email} for ${type}:`, error);
+        console.error(` Error sending OTP email sent to ${userEmail} for ${type}:`, error);
         
     }
 };
