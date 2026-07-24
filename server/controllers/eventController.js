@@ -31,7 +31,7 @@ exports.getEventById = async (req,res) => {
 
 exports.createEvent = async (req, res) => {
     try {
-        const { title, description, date, location, category, totalSeats, ticketPrice, image } = req.body;
+        const { title, description, date, location, category, totalSeats, ticketPrice, imageUrl } = req.body;
         const event = await Event.create({
             title,
             description,
@@ -41,7 +41,7 @@ exports.createEvent = async (req, res) => {
             totalSeats,
             availableSeats: totalSeats,
             ticketPrice: ticketPrice || 0,
-            image: image || '',
+            imageUrl: imageUrl || '',
             createdBy: req.user.id
         });
         res.status(201).json(event);

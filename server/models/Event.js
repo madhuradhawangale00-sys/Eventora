@@ -23,18 +23,18 @@ const eventSchema = new mongoose.Schema({
         required: true
     },
     totalSeats: {
-        type: String,
+        type: Number,
         required: true
     },
     availableSeats: {
-        type: String,
+        type: Number,
         required: true
     },
     ticketPrice: {
         type: Number,
         required: true
     },
-    imageUrl : {
+    imageUrl: {
         type: String,
         required: true
     },
