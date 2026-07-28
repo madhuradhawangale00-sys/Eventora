@@ -79,10 +79,17 @@ const Home = () => {
                 </div>
             </div>
 
-            <div className="flex items-center justify-between mb-8 px-2 border-b border-gray-200 pb-4">
-                <h2 className="text-3xl font-extrabold text-gray-900">Upcoming Events</h2>
-                <div className="text-gray-500 font-medium">{events.length} results found</div>
-            </div>
+            <div
+    id="events"
+    className="flex items-center justify-between mb-8 px-2 border-b border-gray-200 pb-4"
+>
+    <h2 className="text-3xl font-extrabold text-gray-900">
+        Upcoming Events
+    </h2>
+    <div className="text-gray-500 font-medium">
+        {events.length} results found
+    </div>
+</div>
 
             {loading ? (
                 <div className="text-center py-20 text-xl font-semibold text-gray-600">Loading events...</div>
@@ -93,8 +100,8 @@ const Home = () => {
                     {events.map(event => (
                         <div key={event._id} className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition flex flex-col">
                             <div className="h-48 bg-gray-200 overflow-hidden relative">
-                                {event.image ? (
-                                    <img src={event.image} alt={event.title} className="w-full h-full object-cover" />
+                                {event.imageUrl ? (
+                                    <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
                                 ) : (
                                     <div className="w-full h-full flex items-center justify-center bg-gray-200 text-gray-600 font-bold text-2xl">
                                         {event.category || 'Event'}
