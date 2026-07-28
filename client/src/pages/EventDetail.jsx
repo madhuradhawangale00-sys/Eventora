@@ -83,7 +83,7 @@ const EventDetail = () => {
                         <p className="text-gray-600 text-lg leading-relaxed mb-6">{event.description}</p>
                     </div>
 
-                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-[300px] w-full md:w-auto shrink-0 shadow-sm">
+                    <div className="bg-gray-50 p-6 rounded-xl border border-gray-100 min-w-300px w-full md:w-auto shrink-0 shadow-sm">
                         <h3 className="text-xl font-bold text-gray-800 mb-6">Booking Details</h3>
 
                         <div className="space-y-4 mb-8">

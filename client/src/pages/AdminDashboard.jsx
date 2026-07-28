@@ -152,7 +152,7 @@ const AdminDashboard = () => {
                         All Events
                     </h2>
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                        <ul className="divide-y divide-gray-100 max-h-[600px] overflow-y-auto">
+                        <ul className="divide-y divide-gray-100 max-h-600px overflow-y-auto">
                             {events.length === 0 ? <li className="p-6 text-gray-500 text-center">No events created yet.</li> :
                                 events.map(event => (
                                     <li key={event._id} className="p-5 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 hover:bg-gray-50 transition border-b border-gray-100 last:border-0">
@@ -180,7 +180,7 @@ const AdminDashboard = () => {
                         Booking Requests
                     </h2>
                     <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-                        <ul className="divide-y divide-gray-100 max-h-[600px] overflow-y-auto">
+                        <ul className="divide-y divide-gray-100 max-h-600px overflow-y-auto">
                             {bookings.length === 0 ? <li className="p-6 text-gray-500 text-center">No bookings yet.</li> :
                                 bookings.map(booking => (
                                     <li key={booking._id} className={`p-6 hover:bg-gray-50 transition border-l-4 ${booking.status === 'pending' ? 'border-l-yellow-400' : booking.status === 'confirmed' ? 'border-l-green-400' : 'border-l-red-400'}`}>
@@ -216,13 +216,13 @@ const AdminDashboard = () => {
                                         {/* Action buttons for admin */}
                                         {booking.status === 'pending' && (
                                             <div className="flex flex-wrap gap-2 mt-2">
-                                                <button onClick={() => handleConfirmBooking(booking._id, 'paid')} className="flex-1 min-w-[120px] bg-green-50 text-green-700 hover:bg-green-600 hover:text-white border border-green-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
+                                                <button onClick={() => handleConfirmBooking(booking._id, 'paid')} className="flex-1 min-w-120px bg-green-50 text-green-700 hover:bg-green-600 hover:text-white border border-green-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
                                                     ✓ Approve as Paid
                                                 </button>
-                                                <button onClick={() => handleConfirmBooking(booking._id, 'not_paid')} className="flex-1 min-w-[120px] bg-gray-50 text-gray-700 hover:bg-gray-800 hover:text-white border border-gray-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
+                                                <button onClick={() => handleConfirmBooking(booking._id, 'not_paid')} className="flex-1 min-w-120px bg-gray-50 text-gray-700 hover:bg-gray-800 hover:text-white border border-gray-200 text-xs font-bold py-2.5 px-3 rounded-lg shadow-sm transition">
                                                     ✓ Approve Undecided
                                                 </button>
-                                                <button onClick={() => handleCancelBooking(booking._id)} className="w-[80px] bg-red-50 text-red-600 hover:bg-red-500 hover:text-white border border-red-200 text-xs font-bold py-2.5 px-3 rounded-lg transition">
+                                                <button onClick={() => handleCancelBooking(booking._id)} className="w-80px bg-red-50 text-red-600 hover:bg-red-500 hover:text-white border border-red-200 text-xs font-bold py-2.5 px-3 rounded-lg transition">
                                                     ✕ Reject
                                                 </button>
                                             </div>
