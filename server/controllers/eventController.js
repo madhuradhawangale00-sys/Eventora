@@ -28,9 +28,13 @@ exports.getEventById = async (req,res) => {
         res.status(500).json({error: error.message});
     }
 };
+ 
 
 exports.createEvent = async (req, res) => {
+    console.log("createEvent called");
     try {
+        console.log("BODY:", req.body);
+        console.log("USER:", req.user);
         const { title, description, date, location, category, totalSeats, ticketPrice, imageUrl } = req.body;
         const event = await Event.create({
             title,
