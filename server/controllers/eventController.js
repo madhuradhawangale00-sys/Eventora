@@ -31,26 +31,31 @@ exports.getEventById = async (req,res) => {
  
 
 exports.createEvent = async (req, res) => {
-    console.log("createEvent called");
     try {
         console.log("BODY:", req.body);
         console.log("USER:", req.user);
-        const { title, description, date, location, category, totalSeats, ticketPrice, imageUrl } = req.body;
+
         const event = await Event.create({
-            title,
-            description,
-            date,
-            location,
-            category,
-            totalSeats,
-            availableSeats: totalSeats,
-            ticketPrice: ticketPrice || 0,
-            imageUrl: imageUrl || '',
+            title: req.body.title,
+            description: req.body.description,
+            date: req.body.date,
+            location: req.body.location,
+            category: req.body.category,
+            totalSeats: req.body.totalSeats,
+            availableSeats: req.body.totalSeats,
+            ticketPrice: req.body.ticketPrice,
+            imageUrl: req.body.imageUrl,
             createdBy: req.user.id
         });
+
         res.status(201).json(event);
-    } catch (error) {
-        res.status(500).json({ message: 'Server Error', error: error.message });
+
+    } catch (err) {
+        console.error("CREATE EVENT ERROR:", err);
+        res.status(500).json({
+            message: "Server Error",
+            error: err.message
+        });
     }
 };
 
