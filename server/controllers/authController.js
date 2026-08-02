@@ -40,8 +40,11 @@ exports.registerUser = async (req, res) => {
             action: "account_verification",
         });
 
-        await sendOtpEmail(email, otp, "account_verification");
-
+try {
+    await sendOtpEmail(email, otp, "account_verification");
+} catch (err) {
+    console.error("Email sending failed:", err);
+}
         return res.status(201).json({
             message: "User registered successfully. Please check your email for OTP verification.",
             email: user.email,

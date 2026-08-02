@@ -9,6 +9,13 @@ const transporter = nodemailer.createTransport({
         pass: process.env.EMAIL_PASS
     }
 });
+transporter.verify((error, success) => {
+    if (error) {
+        console.log("SMTP Error:", error);
+    } else {
+        console.log("SMTP Server is ready");
+    }
+});
 
 const sendBookingEmail = async (userEmail, userName, eventTitle) => {
     try {
