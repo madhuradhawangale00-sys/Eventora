@@ -8,20 +8,26 @@ const generateToken = (id, role) => {
     return jwt.sign({id, role}, process.env.JWT_SECRET, {expiresIn: '7d'});
 }
 
-//Register user
+//register user
 exports.registerUser = async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        console.time("Total Register");
 
+        console.time("Find User");
+        const { name, email, password } = req.body;
         const userExists = await User.findOne({ email });
+        console.timeEnd("Find User");
 
         if (userExists) {
             return res.status(400).json({ error: "User already exists" });
         }
 
+        console.time("Hash Password");
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
+        console.timeEnd("Hash Password");
 
+        console.time("Create User");
         const user = await User.create({
             name,
             email,
@@ -29,28 +35,31 @@ exports.registerUser = async (req, res) => {
             role: "user",
             isVerified: false,
         });
+        console.timeEnd("Create User");
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
-        console.log(`OTP for ${email}: ${otp}`);
-
+        console.time("Save OTP");
         await OTP.create({
             email,
             otp,
             action: "account_verification",
         });
+        console.timeEnd("Save OTP");
 
-try {
-    await sendOtpEmail(email, otp, "account_verification");
-} catch (err) {
-    console.error("Email sending failed:", err);
-}
+        console.time("Send Email");
+        await sendOtpEmail(email, otp, "account_verification");
+        console.timeEnd("Send Email");
+
+        console.timeEnd("Total Register");
+
         return res.status(201).json({
-            message: "User registered successfully. Please check your email for OTP verification.",
+            message: "User registered successfully",
             email: user.email,
         });
 
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ error: error.message });
     }
 };
