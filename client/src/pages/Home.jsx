@@ -111,7 +111,7 @@ const Home = () => {
                                     {event.ticketPrice === 0 ? <span className="text-green-600">FREE</span> : <span className="text-gray-900">₹{event.ticketPrice}</span>}
                                 </div>
                             </div>
-                            <div className="p-6 flex-grow flex flex-col">
+                            <div className="p-6 grow flex flex-col">
                                 <div className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">{event.category}</div>
                                 <h2 className="text-xl font-bold text-gray-800 mb-3">{event.title}</h2>
                                 <div className="flex flex-col gap-2 mb-4 text-gray-600 text-sm">

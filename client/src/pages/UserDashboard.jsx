@@ -76,7 +76,7 @@ const UserDashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {bookings.map((booking) => (
                         <div key={booking._id} className="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition border border-gray-100 flex flex-col">
-                            <div className="p-6 border-b border-gray-50 flex-grow">
+                            <div className="p-6 border-b border-gray-50 grow">
                                 {booking.eventId ? (
                                     <>
                                         <div className="flex justify-between items-start mb-4">
