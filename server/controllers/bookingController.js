@@ -8,12 +8,32 @@ const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString()
 exports.sendBookingOTP = async (req, res) => {
     try {
         const otp = generateOTP();
-        await OTP.findOneAndDelete({ email: req.user.email, action: 'event_booking' });
-        await OTP.create({ email: req.user.email, otp, action: 'event_booking' });
-        await sendOtpEmail(req.user.email, otp, 'event_booking');
-        res.json({ message: 'OTP sent successfully' });
+
+        await OTP.findOneAndDelete({
+            email: req.user.email,
+            action: "event_booking",
+        });
+
+        await OTP.create({
+            email: req.user.email,
+            otp,
+            action: "event_booking",
+        });
+
+        // Send response immediately
+        res.json({
+            message: "OTP sent successfully",
+        });
+
+        // Send email in background
+        sendOtpEmail(req.user.email, otp, "event_booking")
+            .catch(err => console.error("Booking OTP Email Error:", err));
+
     } catch (error) {
-        res.status(500).json({ message: 'Error sending OTP', error: error.message });
+        res.status(500).json({
+            message: "Error sending OTP",
+            error: error.message,
+        });
     }
 };
 
